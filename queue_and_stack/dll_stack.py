@@ -6,6 +6,9 @@ class Stack:
     def __init__(self):
         self.size = 0
         # Why is our DLL a good choice to store our elements?
+        # DLL is ideal for a stack due to it's ability to add and remove values from the head
+        # The way a stack works, you can only remove items in the direction they were added
+        # which is why DLL is ideal for tracking the order these values are stored
         self.storage = DoublyLinkedList()
 
     def push(self, value):
