@@ -3,11 +3,14 @@ Answer the following questions for each of the data structures you implemented a
 ## Queue
 
 1. What is the runtime complexity of `enqueue`?
+    - O(n) because there is a check for head and tail of linked list, and then the insertion of the node. In addition to incremementing the list size
 
 2. What is the runtime complexity of `dequeue`?
+    - O(n) because there condition to check the size of the list, and then the lookup of the last node to remove it
 
 3. What is the runtime complexity of `len`?
-
+    - O(1) because it's just returning an integer
+    
 ## Binary Search Tree
 
 1. What is the runtime complexity of `insert`? 
