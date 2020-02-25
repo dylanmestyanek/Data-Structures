@@ -13,8 +13,8 @@ class LRUCache:
     def __init__(self, limit=10):
         self.limit = limit
         self.size = 0
-        self.storage = DoublyLinkedList()
         self.dictionary = {}
+        self.storage = DoublyLinkedList()
 
     """
     Retrieves the value associated with the given key. Also
@@ -24,17 +24,20 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        # If the value doesn't exist, return None
-        # If the value exists, moves it to the tail of the DLL as it was used
         # To do this, change it's previous reference to the tail, and make that node the new tail
+        # If the value doesn't exist, return None
         if key not in self.dictionary:
             return None
+        # If the value exists, loop through the DLL and find that node and move it to the end
         elif key in self.dictionary:
-            print(key)
-            self.storage.move_to_front(self.dictionary[key])
-            return self.dictionary[key]
+            node = self.storage.head
 
-        pass
+            while node:
+                if node.value[0] == key:
+                    self.storage.move_to_end(node)
+                    return self.dictionary[key]
+                
+                node = node.next
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -47,25 +50,24 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        # Takes in key and value and needs to add it to self.dictionary
-        # If cache is at self.limit, then remove oldest key-value pair before adding new key-value pair
         # If key already exists, overwrite it
         if key in self.dictionary:
             self.dictionary[key] = value
+        # If cache is at self.limit, then remove oldest key-value pair before adding new key-value pair
         elif self.size == self.limit:
-            print(self.storage.tail)
+            for i in self.dictionary:
+                if self.dictionary[i] == self.storage.head.value[1]:
+                    del self.dictionary[i]
+                    break
+
             self.storage.remove_from_head()
-            self.storage.add_to_tail(value)
+            self.storage.add_to_tail((key, value))
             self.dictionary[key] = value
+        # If the key doesn't exist, increase the size of the cache, and add a new key-value pair to the dictionary
         else:
             self.size += 1
-            self.storage.add_to_tail(value)
+            self.storage.add_to_tail((key, value))
+            print(self.storage.tail.value)
             self.dictionary[key] = value
-        
-        return self.dictionary
 
-lru_cache = LRUCache(2)
-print(lru_cache.set("one", 1))
-print(lru_cache.set("two", 2))
-print(lru_cache.set("three", 3))
-print(lru_cache.set("one", 9))
+        return self.dictionary
