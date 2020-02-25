@@ -3,14 +3,14 @@ Answer the following questions for each of the data structures you implemented a
 ## Queue
 
 1. What is the runtime complexity of `enqueue`?
-    - O(n) because there is a check for head and tail of linked list, and then the insertion of the node. In addition to incremementing the list size
+    - O(1)
 
 2. What is the runtime complexity of `dequeue`?
-    - O(n) because there condition to check the size of the list, and then the lookup of the last node to remove it
+    - O(1) 
 
 3. What is the runtime complexity of `len`?
-    - O(1) because it's just returning an integer
-    
+    - O(1) 
+
 ## Binary Search Tree
 
 1. What is the runtime complexity of `insert`? 
@@ -34,23 +34,35 @@ Answer the following questions for each of the data structures you implemented a
 ## Doubly Linked List
 
 1. What is the runtime complexity of `ListNode.insert_after`?
+    - O(1)
 
 2. What is the runtime complexity of `ListNode.insert_before`?
+    - O(1) 
 
 3. What is the runtime complexity of `ListNode.delete`?
+    - O(1) 
 
 4. What is the runtime complexity of `DoublyLinkedList.add_to_head`?
+    - O(1)
 
 5. What is the runtime complexity of `DoublyLinkedList.remove_from_head`?
+    - O(1)
 
 6. What is the runtime complexity of `DoublyLinkedList.add_to_tail`?
+    - O(1)
 
 7. What is the runtime complexity of `DoublyLinkedList.remove_from_tail`?
+    - O(1)
 
 8. What is the runtime complexity of `DoublyLinkedList.move_to_front`?
+    - O(1)
 
 9. What is the runtime complexity of `DoublyLinkedList.move_to_end`?
+    - O(1)
 
 10. What is the runtime complexity of `DoublyLinkedList.delete`?
+    - O(1)
 
     a. Compare the runtime of the doubly linked list's `delete` method with the worst-case runtime of the JS `Array.splice` method. Which method generally performs better?
+
+    - Doubly linked list's `delete` runtime is O(1) because it is a simple lookup of the item, and removing it's referencing. In comparison to `Array.splice`, where worst case runtime would be O(n). This is due to the need of looping through the array and removing the item at the specified index.
