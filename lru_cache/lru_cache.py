@@ -67,7 +67,6 @@ class LRUCache:
         else:
             self.size += 1
             self.storage.add_to_tail((key, value))
-            print(self.storage.tail.value)
             self.dictionary[key] = value
 
         return self.dictionary
