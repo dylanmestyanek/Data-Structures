@@ -1,3 +1,7 @@
+import sys
+sys.path.append('./doubly_linked_list')
+from doubly_linked_list import DoublyLinkedList, ListNode
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +11,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.size = 0
+        self.storage = DoublyLinkedList()
+        self.dictionary = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,6 +24,16 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
+        # If the value doesn't exist, return None
+        # If the value exists, moves it to the tail of the DLL as it was used
+        # To do this, change it's previous reference to the tail, and make that node the new tail
+        if key not in self.dictionary:
+            return None
+        elif key in self.dictionary:
+            print(key)
+            self.storage.move_to_front(self.dictionary[key])
+            return self.dictionary[key]
+
         pass
 
     """
@@ -30,4 +47,25 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        # Takes in key and value and needs to add it to self.dictionary
+        # If cache is at self.limit, then remove oldest key-value pair before adding new key-value pair
+        # If key already exists, overwrite it
+        if key in self.dictionary:
+            self.dictionary[key] = value
+        elif self.size == self.limit:
+            print(self.storage.tail)
+            self.storage.remove_from_head()
+            self.storage.add_to_tail(value)
+            self.dictionary[key] = value
+        else:
+            self.size += 1
+            self.storage.add_to_tail(value)
+            self.dictionary[key] = value
+        
+        return self.dictionary
+
+lru_cache = LRUCache(2)
+print(lru_cache.set("one", 1))
+print(lru_cache.set("two", 2))
+print(lru_cache.set("three", 3))
+print(lru_cache.set("one", 9))
