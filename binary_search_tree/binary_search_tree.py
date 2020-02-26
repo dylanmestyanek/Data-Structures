@@ -16,9 +16,14 @@ class BinarySearchTree:
         if not self.value:
             node = self.value
             return 
+
         if not node:
             node = self
         
+        # if attempting to insert duplicate, don't do that crap
+        if node.value == value:
+            node.right = BinarySearchTree(value)
+            return value
         # if its less than root, move down left subtree,
         if node.value > value:
             if node.left:
@@ -36,8 +41,30 @@ class BinarySearchTree:
 
     # Return True if the tree contains the value
     # False if it does not
-    def contains(self, target):
-        pass
+    def contains(self, target, node=None):
+        if not self.value:
+            return False
+        
+        if not node:
+            node = self
+
+        # if the value is found, return true
+        if node.value == target:
+            return True
+        # if root is greater than target, move left
+        elif node.value > target:
+            if node.left:
+                return self.contains(target, node.left)
+            else: 
+                return False
+        # if root is lesser than target, move right
+        elif node.value < target:
+            if node.right:
+                return self.contains(target, node.right)
+            else:
+                return False
+        
+
 
     # Return the maximum value found in the tree
     def get_max(self):
@@ -76,14 +103,16 @@ class BinarySearchTree:
     def post_order_dft(self, node):
         pass
 
-bst = BinarySearchTree(4)
-print(bst.value)
+bst = BinarySearchTree(5)
+# print(bst.value)
 # print(bst.left)
 bst.insert(2)
-bst.insert(6)
+bst.insert(3)
+bst.insert(7)
 print(bst.left.value)
 print(bst.right.value)
-bst.insert(3)
+# bst.insert(3)
 print(bst.left.right.value)
-bst.insert(1)
-print(bst.left.left.value)
+# bst.insert(1)
+# print(bst.left.left.value)
+print(bst.contains(9))
