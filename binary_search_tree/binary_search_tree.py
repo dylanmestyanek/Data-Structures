@@ -9,6 +9,7 @@ class BinarySearchTree:
         self.value = value
         self.left = None
         self.right = None
+        self.stack = Stack()
 
     # Insert the given value into the tree
     def insert(self, value, node=None):
@@ -97,8 +98,25 @@ class BinarySearchTree:
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
-    def in_order_print(self, node):
-        pass
+    def in_order_print(self, node=None):
+        if not node:
+            node = self
+            self.stack.push(node)
+
+        if self.stack.size == 0:
+            return 
+        
+        if self.stack.size > 0:
+            print(self.stack.pop().value)
+            if node.right:
+                self.stack.push(node.right)
+                self.in_order_print(self.stack.storage.head.value)
+            if node.left:
+                self.stack.push(node.left)
+                self.in_order_print(self.stack.storage.head.value)
+            else:
+                return
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
@@ -120,3 +138,13 @@ class BinarySearchTree:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+bst = BinarySearchTree(1)
+bst.insert(8)
+bst.insert(5)
+bst.insert(7)
+bst.insert(6)
+bst.insert(3)
+bst.insert(4)
+bst.insert(2)
+bst.in_order_print()
