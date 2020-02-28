@@ -10,6 +10,7 @@ class BinarySearchTree:
         self.left = None
         self.right = None
         self.stack = Stack()
+        self.queue = Queue()
 
     # Insert the given value into the tree
     def insert(self, value, node=None):
@@ -98,10 +99,8 @@ class BinarySearchTree:
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
-    def in_order_print(self, node=None):
-        if not node:
-            node = self
-            self.stack.push(node)
+    def in_order_print(self, node):
+        self.stack.push(node)
 
         if self.stack.size == 0:
             return 
@@ -121,12 +120,35 @@ class BinarySearchTree:
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        self.queue.enqueue(node)
+
+        if self.queue.size == 0:
+            return 
+        
+        while self.queue.size > 0:
+            print(self.queue.dequeue().value)
+            if node.left:
+                self.queue.enqueue(node.left)
+            if node.right:
+                self.queue.enqueue(node.right)
+            if self.queue.size > 0:
+                node = self.queue.storage.head.value
+        return
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        self.stack.push(node)
+        
+        while self.stack.size > 0:
+            print(self.stack.pop().value)
+            if node.right:
+                self.stack.push(node.right)
+            if node.left:
+                self.stack.push(node.left)
+            if self.stack.size > 0:
+                node = self.stack.storage.head.value      
+        return 
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
@@ -147,4 +169,4 @@ bst.insert(6)
 bst.insert(3)
 bst.insert(4)
 bst.insert(2)
-bst.in_order_print()
+bst.dft_print(bst)

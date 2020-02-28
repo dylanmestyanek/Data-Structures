@@ -26,15 +26,25 @@ class Node:
                 double_node = double_node.next.next
         
     def reverse(self):
-        initial_node = self
         current_node = self
-        
-        while current_node:
-            next_node = current_node.next
-            next_node.next = current_node
-            print(current_node.value, next_node.value)
+        next_node = None
+        prev_node = None
 
-            current_node = current_node.next
+        while current_node:
+            # SAVE NEXT NODE BEFORE ITS GONE
+            next_node = current_node.next
+            # CURRENT NEXT TO PREV
+            current_node.next = prev_node
+            # PREV TO CURR
+            prev_node = current_node
+            # CURR TO NEXt
+            current_node = next_node
+
+        main = self
+        while main:
+            print(main.value)
+            main = self.next
+        
 
             
    
@@ -47,18 +57,8 @@ node2 = Node(2)
 node3 = Node(3)
 node4 = Node(4)
 node5 = Node(5)
-node6 = Node(6)
-node7 = Node(7)
-node8 = Node(8)
-node9 = Node(9)
-node10 = Node(10)
 node1.next = node2
 node2.next = node3
 node3.next = node4
 node4.next = node5
-node5.next = node6
-node6.next = node7
-node7.next = node8
-node8.next = node9
-node9.next = node10
-print(node1.middle_node())
+print(node1.reverse())
